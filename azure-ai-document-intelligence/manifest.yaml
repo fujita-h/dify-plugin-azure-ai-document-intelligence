@@ -1,0 +1,29 @@
+version: 0.0.1
+type: plugin
+author: fujita-h
+name: azure-ai-document-intelligence
+label:
+  en_US: Azure AI Document Intelligence
+description:
+  en_US: Accelerate information extraction from documents.
+  ja_JP: ドキュメントからテキストと構造を抽出
+icon: 00819-icon-service-Form-Recognizers.svg
+resource:
+  memory: 268435456
+  permission:
+    tool:
+      enabled: true
+plugins:
+  tools:
+    - provider/azure-ai-document-intelligence.yaml
+meta:
+  version: 0.0.1
+  arch:
+    - amd64
+    - arm64
+  runner:
+    language: python
+    version: "3.12"
+    entrypoint: main
+created_at: 2024-12-19T03:53:00.076575651Z
+verified: false
