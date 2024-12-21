@@ -9,7 +9,7 @@ from dify_plugin.entities.tool import ToolInvokeMessage
 from dify_plugin.errors.tool import ToolProviderCredentialValidationError
 
 
-class AzureAiDocumentIntelligenceTool(Tool):
+class ExtractDocument(Tool):
     def _invoke(self, tool_parameters: dict[str, Any]) -> Generator[ToolInvokeMessage]:
         # Ensure runtime and credentials
         if not self.runtime or not self.runtime.credentials:
