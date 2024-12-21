@@ -25,6 +25,8 @@
 			],
 			"settings": {
 				"[python]": {
+					"editor.tabSize": 4,
+					"editor.insertSpaces": true,
 					"diffEditor.ignoreTrimWhitespace": false,
 					"editor.formatOnType": true,
 					"editor.wordBasedSuggestions": "off",
