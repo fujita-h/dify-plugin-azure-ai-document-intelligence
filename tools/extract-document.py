@@ -6,14 +6,13 @@ from azure.ai.documentintelligence import DocumentIntelligenceClient
 from azure.core.credentials import AzureKeyCredential
 from dify_plugin import Tool
 from dify_plugin.entities.tool import ToolInvokeMessage
-from dify_plugin.errors.tool import ToolProviderCredentialValidationError
 
 
 class ExtractDocumentTool(Tool):
     def _invoke(self, tool_parameters: dict[str, Any]) -> Generator[ToolInvokeMessage]:
         # Ensure runtime and credentials
         if not self.runtime or not self.runtime.credentials:
-            raise ToolProviderCredentialValidationError("Tool runtime or credentials are missing")
+            raise Exception("Tool runtime or credentials are missing")
 
         # Get endpoint and api key
         endpoint = str(self.runtime.credentials.get("azure_ai_document_intelligence_api_endpoint"))
@@ -24,7 +23,9 @@ class ExtractDocumentTool(Tool):
 
         # Get file
         file = tool_parameters.get("file")
-        file_binary = io.BytesIO(file.blob)  # type: ignore
+        if not file:
+            raise ValueError("File is required")
+        file_binary = io.BytesIO(file.blob)
 
         # Get output format
         output_format = tool_parameters.get("output_format")
