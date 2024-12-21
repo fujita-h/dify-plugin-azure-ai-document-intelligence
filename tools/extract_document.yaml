@@ -1,5 +1,5 @@
 identity:
-  name: extract-document
+  name: extract_document
   author: fujita-h
   label:
     en_US: Extract Document
@@ -44,4 +44,4 @@ parameters:
     default: text
 extra:
   python:
-    source: tools/extract-document.py
+    source: tools/extract_document.py

@@ -1,6 +1,6 @@
 identity:
   author: fujita-h
-  name: azure-ai-document-intelligence
+  name: azure_ai_document_intelligence
   label:
     en_US: Azure AI Document Intelligence
   description:
@@ -32,7 +32,7 @@ credentials_for_provider:
       ja_JP: APIエンドポイントを入力
     url: https://portal.azure.com  
 tools:
-  - tools/extract-document.yaml
+  - tools/extract_document.yaml
 extra:
   python:
-    source: provider/azure-ai-document-intelligence.py
+    source: provider/azure_ai_document_intelligence.py

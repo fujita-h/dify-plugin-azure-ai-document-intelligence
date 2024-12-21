@@ -1,7 +1,7 @@
 version: 0.0.2
 type: plugin
 author: fujita-h
-name: azure-ai-document-intelligence
+name: azure_ai_document_intelligence
 label:
   en_US: Azure AI Document Intelligence
 description:
@@ -15,7 +15,7 @@ resource:
       enabled: true
 plugins:
   tools:
-    - provider/azure-ai-document-intelligence.yaml
+    - provider/azure_ai_document_intelligence.yaml
 meta:
   version: 0.0.1
   arch:
