@@ -1,0 +1,77 @@
+name: Package and Release 
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  package-and-release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install yq
+        run: |
+          sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq
+          sudo chmod +x /usr/bin/yq
+      - name: Install Dify tools
+        run: |
+          curl -s https://api.github.com/repos/langgenius/dify-plugin-daemon/releases/latest \
+          | jq -r ".assets[] | select(.name | test(\"dify-plugin-linux-amd64\")) | .browser_download_url" \
+          | xargs -n 1 sudo curl -L -o /usr/local/bin/dify
+          sudo chmod +x /usr/local/bin/dify
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Add some files/directories to .difyignore
+        run: |
+          echo "" >> .difyignore
+          echo ".git/" >> .difyignore
+          echo ".github/" >> .difyignore
+          echo ".devcontainer/" >> .difyignore
+          echo ".vscode/" >> .difyignore
+          echo ".gitignore" >> .difyignore
+          echo ".ruff.toml" >> .difyignore
+      - name: Replace README.md
+        run: |
+          if [ -f "README.difypkg.md" ]; then
+            mv -f README.difypkg.md README.md
+          fi
+      - name: Get the repository directory name
+        id: get_repo_dir_name
+        run: |
+          dir_name=$(basename ${{ github.workspace }})
+          if [ -z "$dir_name" ]; then
+            echo "Repository directory not found"
+            exit 1
+          fi
+          echo "dir_name=$dir_name" >> $GITHUB_OUTPUT
+      - name: Get plugin name from manifest.yaml
+        id: get_plugin_name
+        run: |
+          plugin_name=$(yq -r '.name | select(.)' manifest.yaml)
+          if [ -z "$plugin_name" ]; then
+            echo "Plugin name not found in manifest.yaml"
+            exit 1
+          fi
+          echo "plugin_name=$plugin_name" >> $GITHUB_OUTPUT
+      - name: Package the plugin
+        id: package
+        run: |
+          dir_name="${{ steps.get_repo_dir_name.outputs.dir_name }}"
+          plugin_name="${{ steps.get_plugin_name.outputs.plugin_name }}"
+          plugin_file="../${plugin_name}.difypkg"
+          echo "Packaging $plugin_name..."
+          dify plugin package ../$dir_name -o $plugin_file
+          if [ -f "$plugin_file" ]; then
+            echo "Plugin packaged successfully"
+          else
+            echo "Failed to package the plugin"
+            exit 1
+          fi
+          echo "plugin_file=$plugin_file" >> $GITHUB_OUTPUT
+      - name: Relase
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ${{ steps.package.outputs.plugin_file }}
