@@ -46,21 +46,33 @@ jobs:
             exit 1
           fi
           echo "dir_name=$dir_name" >> $GITHUB_OUTPUT
-      - name: Get plugin name from manifest.yaml
-        id: get_plugin_name
+      - name: Get plugin info from manifest.yaml
+        id: get_plugin_info
         run: |
+          plugin_author=$(yq -r '.author | select(.)' manifest.yaml)
+          if [ -z "$plugin_author" ]; then
+            echo "Plugin author not found in manifest.yaml"
+            exit 1
+          fi
           plugin_name=$(yq -r '.name | select(.)' manifest.yaml)
           if [ -z "$plugin_name" ]; then
             echo "Plugin name not found in manifest.yaml"
             exit 1
           fi
+          plugin_version=$(yq -r '.version | select(.)' manifest.yaml)
+          if [ -z "$plugin_version" ]; then
+            echo "Plugin version not found in manifest.yaml"
+            exit 1
+          fi
+          echo "plugin_author=$plugin_author" >> $GITHUB_OUTPUT
           echo "plugin_name=$plugin_name" >> $GITHUB_OUTPUT
+          echo "plugin_version=$plugin_version" >> $GITHUB_OUTPUT
       - name: Package the plugin
         id: package
         run: |
           dir_name="${{ steps.get_repo_dir_name.outputs.dir_name }}"
           plugin_name="${{ steps.get_plugin_name.outputs.plugin_name }}"
-          plugin_file="../${plugin_name}.difypkg"
+          plugin_file="../${plugin_author}-${plugin_name}_${plugin_version}.difypkg"
           echo "Packaging $plugin_name..."
           dify plugin package ../$dir_name -o $plugin_file
           if [ -f "$plugin_file" ]; then
