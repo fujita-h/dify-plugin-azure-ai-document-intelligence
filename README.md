@@ -31,6 +31,10 @@ https://learn.microsoft.com/azure/ai-services/document-intelligence/prebuilt/lay
 
 This plugin uses the Document Layout Analysis API v4.0 of the [Azure AI Document Intelligence](https://azure.microsoft.com/products/ai-services/ai-document-intelligence) service. Please refer to the official documentation for more information.
 
+## Report Issues
+
+Please report any issues to the GitHub repository.
+
 ## Contributing
 
 This plugin is open-source and contributions are welcome. Please visit the GitHub repository to contribute.
