@@ -20,6 +20,14 @@ This tool extracts text from a document using the Azure AI Document Intelligence
 
 https://learn.microsoft.com/azure/ai-services/document-intelligence/prebuilt/layout?view=doc-intel-4.0.0
 
+## Configuration Steps to use this plugin
+
+1. Create an Azure AI Document Intelligence resource in the Azure portal.
+2. Get the endpoint and key from the Azure portal.
+3. Install the plugin.
+4. Authorize the plugin with the endpoint and key.
+5. Use the tools provided by the plugin.
+
 ## Notes
 
 This plugin uses the Document Layout Analysis API v4.0 of the [Azure AI Document Intelligence](https://azure.microsoft.com/products/ai-services/ai-document-intelligence) service. Please refer to the official documentation for more information.
