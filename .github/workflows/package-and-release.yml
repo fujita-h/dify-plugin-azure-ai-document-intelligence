@@ -71,8 +71,8 @@ jobs:
         id: package
         run: |
           dir_name="${{ steps.get_repo_dir_name.outputs.dir_name }}"
-          plugin_name="${{ steps.get_plugin_name.outputs.plugin_name }}"
-          plugin_file="../${plugin_author}-${plugin_name}_${plugin_version}.difypkg"
+          plugin_name="${{ steps.get_plugin_info.outputs.plugin_author }}-${{ steps.get_plugin_info.outputs.plugin_name }}_${{ steps.get_plugin_info.outputs.plugin_version }}"
+          plugin_file="../${plugin_name}.difypkg"
           echo "Packaging $plugin_name..."
           dify plugin package ../$dir_name -o $plugin_file
           if [ -f "$plugin_file" ]; then
