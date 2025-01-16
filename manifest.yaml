@@ -1,4 +1,4 @@
-version: 0.0.6
+version: 0.0.7
 type: plugin
 author: fujita-h
 name: azure_ai_document_intelligence
