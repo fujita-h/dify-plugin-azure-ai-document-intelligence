@@ -15,14 +15,14 @@ class ExtractDocumentTool(Tool):
             raise Exception("Tool runtime or credentials are missing")
 
         # Get endpoint and api key
-        endpoint = str(self.runtime.credentials.get("azure_ai_document_intelligence_api_endpoint"))
-        api_key = str(self.runtime.credentials.get("azure_ai_document_intelligence_api_key"))
+        endpoint = str(self.runtime.credentials.get("api_endpoint"))
+        api_key = str(self.runtime.credentials.get("api_key"))
 
         # Create credential
         credential = AzureKeyCredential(api_key)
 
         # Get file
-        file = tool_parameters.get("file")
+        file = tool_parameters.get("input_file")
         if not file:
             raise ValueError("File is required")
         file_binary = io.BytesIO(file.blob)

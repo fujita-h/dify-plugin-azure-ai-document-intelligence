@@ -10,7 +10,7 @@ description:
     ja_JP: ドキュメント/画像をテキストまたはMarkdownに展開
   llm: This tool extract document or image file to text or markdown format.
 parameters:
-  - name: file
+  - name: input_file
     type: file
     required: true
     label:

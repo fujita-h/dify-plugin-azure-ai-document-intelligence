@@ -11,7 +11,7 @@ identity:
     - utilities
     - image
 credentials_for_provider:
-  azure_ai_document_intelligence_api_endpoint:
+  api_endpoint:
     type: text-input
     required: true
     label:
@@ -21,7 +21,7 @@ credentials_for_provider:
       en_US: Enter your API Endpoint
       ja_JP: APIエンドポイントを入力
     url: https://portal.azure.com  
-  azure_ai_document_intelligence_api_key:
+  api_key:
     type: secret-input
     required: true
     label:
