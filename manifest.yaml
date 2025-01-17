@@ -26,4 +26,5 @@ meta:
     version: "3.12"
     entrypoint: main
 created_at: 2024-12-19T03:53:00.076575651Z
+privacy: PRIVACY.md
 verified: false
