@@ -11,16 +11,6 @@ identity:
     - utilities
     - image
 credentials_for_provider:
-  azure_ai_document_intelligence_api_key:
-    type: secret-input
-    required: true
-    label:
-      en_US: API Key
-      ja_JP: APIキー
-    placeholder:
-      en_US: Enter your API Key
-      ja_JP: APIキーを入力
-    url: https://portal.azure.com
   azure_ai_document_intelligence_api_endpoint:
     type: text-input
     required: true
@@ -31,6 +21,16 @@ credentials_for_provider:
       en_US: Enter your API Endpoint
       ja_JP: APIエンドポイントを入力
     url: https://portal.azure.com  
+  azure_ai_document_intelligence_api_key:
+    type: secret-input
+    required: true
+    label:
+      en_US: API Key
+      ja_JP: APIキー
+    placeholder:
+      en_US: Enter your API Key
+      ja_JP: APIキーを入力
+    url: https://portal.azure.com
 tools:
   - tools/extract_document.yaml
 extra:

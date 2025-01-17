@@ -8,14 +8,14 @@ from dify_plugin.errors.tool import ToolProviderCredentialValidationError
 class AzureAiDocumentIntelligenceProvider(ToolProvider):
     def _validate_credentials(self, credentials: dict[str, Any]) -> None:
         try:
-            api_key = credentials.get("azure_ai_document_intelligence_api_key")
             api_endpoint = credentials.get("azure_ai_document_intelligence_api_endpoint")
+            api_key = credentials.get("azure_ai_document_intelligence_api_key")
 
             # Ensure API key and endpoint are provided
-            if not api_key:
-                raise Exception("Azure AI Document Intelligence API key is missing")
             if not api_endpoint:
                 raise Exception("Azure AI Document Intelligence API endpoint is missing")
+            if not api_key:
+                raise Exception("Azure AI Document Intelligence API key is missing")
 
             # Validate the API key and endpoint
             headers = {"Ocp-Apim-Subscription-Key": api_key}
