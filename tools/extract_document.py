@@ -15,8 +15,14 @@ class ExtractDocumentTool(Tool):
             raise Exception("Tool runtime or credentials are missing")
 
         # Get endpoint and api key
-        endpoint = str(self.runtime.credentials.get("api_endpoint"))
-        api_key = str(self.runtime.credentials.get("api_key"))
+        endpoint = str(self.runtime.credentials.get("api_endpoint", "")).strip()
+        api_key = str(self.runtime.credentials.get("api_key", "")).strip()
+
+        # Check if endpoint and api key are provided
+        if not endpoint:
+            raise ValueError("API endpoint is missing")
+        if not api_key:
+            raise ValueError("API key is missing")
 
         # Create credential
         credential = AzureKeyCredential(api_key)
